@@ -1,0 +1,180 @@
+use master
+go
+
+create database QuanLyDatPhongKhachSan
+go
+
+use QuanLyDatPhongKhachSan
+go
+
+create table tblNhanVien
+(
+	sMaNhanVien	nvarchar(20) not null primary key,
+	sHoTenNhanVien nvarchar(50),
+	sGioiTinh nvarchar(10),
+	sDiaChi nvarchar(50),
+	sSDT nvarchar(15),
+	fHSL float,
+)
+go
+
+create table tblKhachHang
+(
+	sMaKhachHang nvarchar(20) not null primary key,
+	sHoTenKhachHang nvarchar(50),
+	sSDT nvarchar(15),
+	sGioiTinh nvarchar(10)
+)
+go
+
+create table tblPhong
+(
+	sMaPhong nvarchar(20) not null primary key,
+	sLoaiPhong nvarchar(30),
+	fGiaPhong float,
+	sMoTaPhong nvarchar(250),
+)
+go
+
+create table tblDichVu
+(
+	sMaDichVu nvarchar(20) not null primary key,
+	sTenDichVu nvarchar(50),
+	fDonGia float,
+	sMoTa nvarchar(250),
+)
+go
+
+create table tblHoaDon
+(
+	sMaHoaDon nvarchar(20) not null primary key,
+	sMaKhachHang nvarchar(20) not null,
+	sMaDichVu nvarchar(20) not null,
+	dNgayLapHoaDon date,
+	sThoiGianThue nvarchar(20),
+	sGhiChu nvarchar(250),
+	
+
+	foreign key (sMaKhachHang) references dbo.tblKhachHang(sMaKhachHang),
+	foreign key (sMaDichVu) references dbo.tblDichVu(sMaDichVu),
+)
+go
+
+create table tblCTHoaDon
+(
+	sMaHoaDon nvarchar(20) not null primary key,
+	sMaPhong nvarchar(20) not null,
+	iSoLuong  int ,
+
+	foreign key (sMaHoaDon) references dbo.tblHoaDon(sMaHoaDon),
+)
+
+go
+
+--Chèn dữ liệu cho bảng tbl Nhân Viên
+ Insert into tblNhanVien(sMaNhanVien,sHoTenNhanVien,sGioiTinh,sDiaChi,sSDT,fHSL)
+ VALUES ('NV01',N'Phạm Văn Hải',N'Nam',N'Hải Phòng','0912083435',4.4),
+		('NV02',N'Bùi Thị Vân',N'Nữ',N'Hòa Bình','0324560231',4.2),
+		('NV03',N'Nguyễn Thúy Ngọc',N'Nữ',N'Hà Nội','0901384678',3.0),
+		('NV04',N'Phạm Mịnh Hằng',N'Nữ',N'Thái Nguyên','0932683565',3.6),
+		('NV05',N'Trần Văn Hạnh','Nam',N'Sơn La','0912067835',4.4),
+		('NV06',N'Phạm Thị Nga',N'Nữ',N'Quảng Ninh','0901123435',3.7),
+		('NV07',N'Nguyễn Thúy Khánh',N'Nữ',N'Vĩnh Phúc','0932082435',3.6),
+		('NV08',N'Phạm Văn Khánh',N'Nam',N'Thái Nguyên','0901267865',3.0)
+		select * from tblNhanVien
+		go
+--Chèn dữ liệu cho bảng tbl Khách Hàng
+ Insert into tblKhachHang(sMaKhachHang,sHoTenKhachHang,sSDT,sGioiTinh)
+ VALUES ('KH01',N'Trần Xuân Mạnh','0984567123',N'Nam'),
+		('KH02',N'Nguyễn Thị Bình','0324587143',N'Nữ'),
+		('KH03',N'Trần Viết Tú','0967543251',N'Nam'),
+		('KH04',N'Trịnh Khánh Linh','0924581341',N'Nữ'),
+		('KH05',N'Hán Văn Thái','0982875342',N'Nam'),
+		('KH06',N'Triệu Văn Ngọc','0981236765',N'Nam'),
+		('KH07',N'Trần Hải Lý','0954893678',N'Nữ'),
+		('KH08',N'Phạm Hải Toàn','0968372467',N'Nam')
+		select * from tblKhachHang
+		go
+--Chèn dữ liệu cho bảng tbl Phòng
+ Insert into tblPhong(sMaPhong,sLoaiPhong,fGiaPhong,sMoTaPhong)
+ VALUES ('P101',N'Đơn',500000,N'Đầy đủ tiện nghi'),
+		('P102',N'Đôi',700000,N'Đầy đủ tiện nghi'),
+		('P103',N'Đơn',500000,N'Đầy đủ tiện nghi'),
+		('P104',N'Đôi',700000,N'Đầy đủ tiện nghi'),
+		('P201',N'Đơn',500000,N'Đầy đủ tiện nghi'),
+		('P202',N'Đôi',700000,N'Đầy đủ tiện nghi'),
+		('P203',N'Đơn',500000,N'Đầy đủ tiện nghi'),
+		('P204',N'Đôi',700000,N'Đầy đủ tiện nghi'),
+		('P301',N'Đơn',500000,N'Đầy đủ tiện nghi'),
+		('P302',N'Đôi',700000,N'Đầy đủ tiện nghi'),
+		('P303',N'Đơn',500000,N'Đầy đủ tiện nghi'),
+		('P304',N'Đôi',700000,N'Đầy đủ tiện nghi'),
+		('P401',N'Đơn',500000,N'Đầy đủ tiện nghi'),
+		('P402',N'Đôi',700000,N'Đầy đủ tiện nghi'),
+		('P403',N'Đơn',500000,N'Đầy đủ tiện nghi'),
+		('P404',N'Đôi',700000,N'Đầy đủ tiện nghi'),
+		('P501',N'Đơn',500000,N'Đầy đủ tiện nghi'),
+		('P502',N'Đôi',700000,N'Đầy đủ tiện nghi'),
+		('P503',N'Đơn',500000,N'Đầy đủ tiện nghi'),
+		('P504',N'Đôi',700000,N'Đầy đủ tiện nghi'),
+		('PVIP1',N'Phòng họp',1000000,N'Đầy đủ tiện nghi'),
+		('PVIP2',N'Phòng họp',1000000,N'Đầy đủ tiện nghi')
+		select * from tblPhong
+		go
+--Chèn dữ liệu cho bảng tbl Dịch Vụ
+ Insert into tblDichVu (sMaDichVu,sTenDichVu,fDonGia,sMoTa)
+ VALUES ('BAR',N'Quầy bar',300000,N'Các loại rượu, cocktail'),
+		('SPA',N'Dịch vụ Spa',0,N'Tặng dịch vụ đi kèm với tiền phòng'),
+		('FIT',N'Fitness center',0,N'Tặng dịch vụ đi kèm với tiền phòng'),
+		('MS',N'Dịch vụ hội họp',100000000,N'Gồm phòng họp, phòng hội nghị, phòng yến tiệc'),
+		('LS',N'Dịch vụ giặt ủi quần áo',0,N'Tặng dịch vụ đi kèm với tiền phòng'),
+		('RS',N'Dịch vụ phòng 24/24',0,N'Tặng dịch vụ đi kèm với tiền phòng'),
+		('SP',N'Bể bơi',100000,N'Mở 4 mùa')
+		select * from tblDichVu
+		go
+--Chèn dữ liệu cho bảng tbl Hóa Đơn
+ Insert into tblHoaDon(sMaHoaDon,sMaKhachHang,sMaDichVu,dNgayLapHoaDon,sThoiGianThue,sGhiChu)
+ VALUES ('H001','KH01','BAR','2020/4/30','2h',N'Không'),
+		('H002','KH02','RS','2020/5/4','1h',N'Không'),
+		('H003','KH03','MS','2020/9/20','5h',N'Không'),
+		('H004','KH05','BAR','2020/9/20','1h',N'Không'),
+		('H005','KH04','SPA','2020/9/21','2h',N'Không'),
+		('H006','KH06','FIT','2020/11/15','1h',N'Không'),
+		('H007','KH07','BAR','2021/1/24','1h',N'Không'),
+		('H008','KH08','SP','2021/5/1','1h',N'Không')
+
+		select* from tblHoaDon
+		go
+ --Chèn dữ liệu cho bảng tbl Chi Tiết Hóa Đơn
+ Insert into tblCTHoaDon(sMaHoaDon,sMaPhong,iSoLuong)
+ VALUES ('H001','P202',1),
+		('H002','P302',1),
+		('H003','PVIP1',1),
+		('H004','P401,P402,P403',3),
+		('H005','P201',1),
+		('H006','P101',1),
+		('H007','P304',1),
+		('H008','P502',1)
+		select*from tblCTHoaDon
+		go
+SELECT sHoTenKhachHang AS N'Họ tên KH', sSDT AS N'SĐT'
+FROM tblKhachHang
+WHERE sGioiTinh=N'Nữ'
+go	
+SELECT sMaPhong AS N'Tên phòng'
+FROM tblCTHoaDon,tblHoaDon
+WHERE  tblCTHoaDon.sMaHoaDon=tblHoaDon.sMaHoaDon AND sThoiGianThue>='2'
+go	
+SELECT sHoTenNhanVien AS N'Họ tên NV',sGioiTinh AS N'Giới tính'
+FROM tblNhanVien
+WHERE sHoTenNhanVien LIKE N'Phạm%'
+go
+SELECT sHoTenNhanVien AS N'Họ tên NV',fHSL*300000 AS N'Lương'
+FROM tblNhanVien
+WHERE fHSL BETWEEN 3.5 AND 4.5
+ORDER BY fHSL ASC
+go
+SELECT sLoaiPhong AS N'Loại phòng', COUNT(fGiaPhong) AS N'Số phòng'
+FROM tblPhong
+GROUP BY sLoaiPhong
+go
